@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Температура в разных городах</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 5px 0;
+        }
+        .max-temp {
+            color: red;
+        }
+        .min-temp {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Температура в разных городах</h1>
+    <ul id="city-temp-list"></ul>
+    <p id="max-temp"></p>
+    <p id="min-temp"></p>
+
+    <script>
+        const cities = ["Москва", "Санкт-Петербург", "Казань", "Новосибирск", "Екатеринбург"];
+        const temperatures = [];
+
+        for (let i = 0; i < cities.length; i++) {
+            const temp = prompt(`Введите температуру для города ${cities[i]}`);
+            temperatures.push(Number(temp));
+        }
+
+        const cityTempList = document.getElementById("city-temp-list");
+
+        let maxTemp = -Infinity;
+        let minTemp = Infinity;
+        let maxTempCity = '';
+        let minTempCity = '';
+
+        for (let i = 0; i < cities.length; i++) {
+            const li = document.createElement("li");
+            li.textContent = `${cities[i]}: ${temperatures[i]}°C`;
+            cityTempList.appendChild(li);
+
+            if (temperatures[i] > maxTemp) {
+                maxTemp = temperatures[i];
+                maxTempCity = cities[i];
+            }
+            if (temperatures[i] < minTemp) {
+                minTemp = temperatures[i];
+                minTempCity = cities[i];
+            }
+        }
+
+        const maxTempElement = document.getElementById("max-temp");
+        maxTempElement.textContent = `Максимальная температура: ${maxTempCity} - ${maxTemp}°C`;
+        maxTempElement.classList.add("max-temp");
+
+        const minTempElement = document.getElementById("min-temp");
+        minTempElement.textContent = `Минимальная температура: ${minTempCity} - ${minTemp}°C`;
+        minTempElement.classList.add("min-temp");
+    </script>
+</body>
+</html>
